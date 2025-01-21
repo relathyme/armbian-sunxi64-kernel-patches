@@ -1,0 +1,29 @@
+--- a/drivers/net/wireless/uwe5622/unisocwcn/include/wcn_glb.h
++++ b/drivers/net/wireless/uwe5622/unisocwcn/include/wcn_glb.h
+@@ -2,10 +2,10 @@
+ #define __WCN_GLB_H__
+ 
+ #include <marlin_platform.h>
+-#include "bufring.h"
+-#include "wcn_parn_parser.h"
+-#include "wcn_txrx.h"
+-#include "wcn_log.h"
++#include "platform/bufring.h"
++#include "platform/wcn_parn_parser.h"
++#include "platform/wcn_txrx.h"
++#include "platform/wcn_log.h"
+ 
+ #ifndef CONFIG_CHECK_DRIVER_BY_CHIPID
+ #ifdef CONFIG_UWE5621
+@@ -24,8 +24,8 @@
+ #include "uwe562x_glb.h"
+ #endif
+ 
+-#include "wcn_dump.h"
+-#include "loopcheck.h"
+-#include "rdc_debug.h"
++#include "platform/wcn_dump.h"
++#include "platform/loopcheck.h"
++#include "platform/rdc_debug.h"
+ 
+ #endif

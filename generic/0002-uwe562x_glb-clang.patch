@@ -1,0 +1,13 @@
+--- a/drivers/net/wireless/uwe5622/unisocwcn/include/uwe562x_glb.h
++++ b/drivers/net/wireless/uwe5622/unisocwcn/include/uwe562x_glb.h
+@@ -2,8 +2,8 @@
+ #define __UWE562X_GLB_H__
+ 
+ #include "../sleep/slp_mgr.h"
+-#include "mem_pd_mgr.h"
+-#include "rdc_debug.h"
++#include "platform/mem_pd_mgr.h"
++#include "platform/rdc_debug.h"
+ 
+ static inline unsigned int reg_value(unsigned int marlin3reg,
+ 	unsigned int marlin3lreg, unsigned int marlin3ereg) {

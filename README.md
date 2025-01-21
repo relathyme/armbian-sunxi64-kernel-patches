@@ -13,12 +13,12 @@ $ tar xvf $ARMBIAN_VERSION.tar.gz
 # convert armbian patches series to patch our kernel
 - cd to kernel directory first
 ```bash
-$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/series.megous | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/#g;/#/d" > series.megous
+$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/series.megous | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/#g;/^#/d" > series.megous
 
 # series.fixes is not always present
-$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/series.fixes | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/#g;/#/d" > series.fixes
+$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/series.fixes | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/#g;/^#/d" > series.fixes
 
-$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/series.armbian | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/#g;/#/d" > series.armbian
+$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/series.armbian | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/sunxi-6.6/#g;/^#/d" > series.armbian
 ```
 
 # apply patches

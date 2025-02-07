@@ -3,7 +3,7 @@
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=500448d58842f627bf1f109b55dd4d4bd85caecd # or other commit
+$ ARMBIAN_VERSION=955de2627d97fdfb032f0afea48a78900a9487bd # or other commit
 
 $ wget https://github.com/armbian/build/archive/$ARMBIAN_VERSION.tar.gz
 

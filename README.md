@@ -36,6 +36,7 @@ $ for patch in $(cat series.fixes); do patch -sNp1 < "$patch"; done
 
 $ for patch in $(cat series.armbian); do patch -sNp1 < "$patch"; done
 ```
+- uwe5622 patches are extracted according to https://github.com/armbian/build/blob/main/lib/functions/compilation/patch/drivers_network.sh (function driver_uwe5622())
 
 # build debian kernel package
 ```bash

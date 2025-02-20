@@ -25,7 +25,7 @@ $ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.armbia
 
 # apply patches
 ```bash
-$ for patch in ~/kernel-patches/uwe5622-allwinner-v6.6/*.patch; do patch -sNp1 < "$patch"; done
+$ for patch in ~/kernel-patches/uwe5622-$KERNEL_FAMILY/*.patch; do patch -sNp1 < "$patch"; done
 
 $ for patch in ~/kernel-patches/generic/*.patch; do patch -sNp1 < "$patch"; done
 

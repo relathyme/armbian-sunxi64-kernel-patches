@@ -42,7 +42,7 @@ $ for patch in $(cat series.armbian); do patch -sNp1 < "$patch"; done
 ```bash
 $ mkdir out
 
-$ cp ~/kernel-patches/config_<version> out/.config
+$ cp ~/kernel-patches/config_$KERNEL_FAMILY out/.config
 
 $ make O=out ARCH=arm64 LLVM=1 LLVM_IAS=1 KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" LOCALVERSION="-${ARMBIAN_VERSION:0:7}" KBUILD_BUILD_USER="nobody" KBUILD_BUILD_HOST="localhost" KBUILD_BUILD_TIMESTAMP="$(date -Ru)" -j10 olddefconfig 2>&1 | tee -a out/build.log
 

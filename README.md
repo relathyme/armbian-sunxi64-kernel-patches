@@ -3,9 +3,9 @@
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=955de2627d97fdfb032f0afea48a78900a9487bd # or other commit
+$ ARMBIAN_VERSION=51b300ebdf716ba984b40c722b0e345f6ba73ac6 # or other commit
 
-$ KERNEL_FAMILY=sunxi-6.6 # or other version
+$ KERNEL_FAMILY=sunxi-6.12 # or other version
 
 $ wget https://github.com/armbian/build/archive/$ARMBIAN_VERSION.tar.gz
 

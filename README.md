@@ -15,12 +15,7 @@ $ tar xvf $ARMBIAN_VERSION.tar.gz
 # convert armbian patches series to patch our kernel
 - cd to kernel directory first
 ```bash
-$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.megous | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g;/^#/d" > series.megous
-
-# series.fixes is not always present
-$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.fixes | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g;/^#/d" > series.fixes
-
-$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.armbian | sed "s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g;/^#/d" > series.armbian
+$ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.conf | sed "/^[#-]/d; /^$/d; s#\t#$HOME/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g" > series.conf
 ```
 
 # apply patches
@@ -29,12 +24,7 @@ $ for patch in ~/kernel-patches/uwe5622-$KERNEL_FAMILY/*.patch; do patch -sNp1 <
 
 $ for patch in ~/kernel-patches/generic/*.patch; do patch -sNp1 < "$patch"; done
 
-$ for patch in $(cat series.megous); do patch -sNp1 < "$patch"; done
-
-# if presents
-$ for patch in $(cat series.fixes); do patch -sNp1 < "$patch"; done
-
-$ for patch in $(cat series.armbian); do patch -sNp1 < "$patch"; done
+$ for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
 ```
 - uwe5622 patches are extracted according to https://github.com/armbian/build/blob/main/lib/functions/compilation/patch/drivers_network.sh (function driver_uwe5622())
 

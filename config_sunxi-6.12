@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.12.13 Kernel Configuration
+# Linux/arm64 6.12.16 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="ClangBuiltLinux clang version 19.1.7 (https://github.com/llvm/llvm-project.git cd708029e0b2869e80abe31ddb175f7c35361f90)"
 CONFIG_GCC_VERSION=0
@@ -2394,6 +2394,7 @@ CONFIG_MD=y
 CONFIG_BLK_DEV_MD=y
 CONFIG_MD_AUTODETECT=y
 CONFIG_MD_BITMAP_FILE=y
+# CONFIG_MD_LINEAR is not set
 CONFIG_MD_RAID0=y
 CONFIG_MD_RAID1=y
 CONFIG_MD_RAID10=y
@@ -7923,7 +7924,6 @@ CONFIG_ARM_GIC_V3=y
 CONFIG_ARM_GIC_V3_ITS=y
 CONFIG_IRQ_MSI_LIB=y
 # CONFIG_AL_FIC is not set
-# CONFIG_LAN966X_OIC is not set
 CONFIG_MADERA_IRQ=m
 CONFIG_SUN6I_R_INTC=y
 CONFIG_SUNXI_NMI_INTC=y

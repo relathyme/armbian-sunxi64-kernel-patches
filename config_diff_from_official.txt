@@ -14,6 +14,9 @@ for 6.12+:
 +ZRAM_BACKEND_ZSTD
 +ZRAM_DEF_COMP_ZSTD
 -ZRAM_BACKEND_LZO
++CONFIG_MODULE_COMPRESS
++CONFIG_MODULE_COMPRESS_ZSTD
++CONFIG_MODULE_DECOMPRESS
 
 config for 6.6 based on the sunxi64-current config
 config for 6.12 based on the sunxi64-edge config

@@ -20,10 +20,13 @@ for 6.12+:
 +CONFIG_MODULE_COMPRESS_ZSTD
 +CONFIG_MODULE_DECOMPRESS
 +CONFIG_DEBUG_INFO_NONE
+CONFIG_EXT2_FS as a module
 CONFIG_EXT3_FS as a module
 CONFIG_EXT4_FS as a module
 CONFIG_BTRFS_FS as a module
 CONFIG_F2FS_FS as a module
+CONFIG_VFAT_FS as a module
+CONFIG_ECRYPT_FS as a module
 
 config for 6.6 based on the sunxi64-current config
 config for 6.12 based on the sunxi64-edge config

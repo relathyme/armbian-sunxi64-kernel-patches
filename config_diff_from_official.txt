@@ -29,6 +29,7 @@ CONFIG_VFAT_FS as a module
 CONFIG_ECRYPT_FS as a module
 CONFIG_SQUASHFS as a module
 +CONFIG_DMI
++CONFIG_DMI_SYSFS
 
 config for 6.6 based on the sunxi64-legacy config
 config for 6.12 based on the sunxi64-current config

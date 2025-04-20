@@ -1,0 +1,2 @@
+- supported: v2025.01-v2025.04-???
+- tested atf: v2.12.1

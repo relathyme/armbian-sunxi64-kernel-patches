@@ -1,2 +1,7 @@
-- supported: ???-v2025.01-v2025.04-???
-- tested atf: v2.12.1
+- tested : atf v2.12.2 with u-boot v2025.04
+
+# my config additions:
+```
++CONFIG_EFI_RT_VOLATILE_STORE
++CONFIG_CMD_UFETCH
+```

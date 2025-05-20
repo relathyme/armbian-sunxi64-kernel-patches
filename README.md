@@ -11,6 +11,7 @@ bootefi ${kernel_addr_r} ${fdt_addr_r}
 - my config additions are listed in config_diff_from_official.txt
 - tbh i don't know how to maintain kernel patches so compatibility with latest kernel releases is not guaranteed, all thanks to armbian developers for their work
 - armbian u-boot should work
+- toolchain used: https://mirrors.edge.kernel.org/pub/tools/llvm/files
 
 # get source
 - clone this repo to ~/kernel-patches

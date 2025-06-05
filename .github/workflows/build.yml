@@ -34,6 +34,7 @@ jobs:
         run: |
           wget https://mirrors.edge.kernel.org/pub/tools/llvm/files/$LLVM_TOOLCHAIN.tar.xz
           tar xvf $LLVM_TOOLCHAIN.tar.xz
+          echo $PWD/$LLVM_TOOLCHAIN/bin >> $GITHUB_PATH
 
       - name: Checkout kernel source
         run: |
@@ -46,7 +47,7 @@ jobs:
 
       - name: Apply patches
         run: |
-          cat ../build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.conf | sed "/^[#-]/d; /^$/d; s#\t#$PWD/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g" > linux/series.conf
+          cat build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.conf | sed "/^[#-]/d; /^$/d; s#\t#$PWD/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g" > linux/series.conf
           cd linux
           for patch in ../uwe5622-$KERNEL_FAMILY/*.patch; do patch -sNp1 < "$patch"; done
           for patch in ../generic/*.patch; do patch -sNp1 < "$patch"; done
@@ -55,8 +56,8 @@ jobs:
       - name: Build kernel
         run: |
           mkdir out
-          cp ~/kernel-patches/config_$KERNEL_FAMILY out/.config
-          echo make \
+          cp ../config_$KERNEL_FAMILY out/.config
+          make \
             O=out \
             ARCH=arm64 \
             LLVM=1 \

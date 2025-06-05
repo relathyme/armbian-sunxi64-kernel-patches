@@ -23,7 +23,7 @@ jobs:
         run: |
           while IFS='=' read -r key value; do echo "$key=$value" >> $GITHUB_ENV; done < build.txt
           echo KERNEL_FAMILY=$KERNEL_FAMILY >> $GITHUB_ENV
-          echo KERNEL_BRANCH=$(eval "echo \$BRANCH_$(echo $KERNEL_FAMILY | tr -d ".-")") >> $GITHUB_ENV
+          echo KERNEL_BRANCH=$(cat build.txt | grep BRANCH_$(echo $KERNEL_FAMILY | tr -d ".-") | cut -d'=' -f2 >> $GITHUB_ENV
 
       - name: Install build dependencies
         run: |

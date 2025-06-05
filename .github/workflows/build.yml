@@ -49,12 +49,13 @@ jobs:
         run: |
           cat build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.conf | sed "/^[#-]/d; /^$/d; s#\t#$PWD/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g" > linux/series.conf
           cd linux
-          for patch in ../uwe5622-$KERNEL_FAMILY/*.patch; do patch -sNp1 < "$patch"; done
-          for patch in ../generic/*.patch; do patch -sNp1 < "$patch"; done
-          for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
+          for patch in ../uwe5622-$KERNEL_FAMILY/*.patch; do patch -Np1 < "$patch"; done
+          for patch in ../generic/*.patch; do patch -Np1 < "$patch"; done
+          for patch in $(cat series.conf); do patch -p1 < "$patch"; done
 
       - name: Build kernel
         run: |
+          cd linux
           mkdir out
           cp ../config_$KERNEL_FAMILY out/.config
           make \

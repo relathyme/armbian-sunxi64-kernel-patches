@@ -21,6 +21,7 @@ jobs:
           while IFS='=' read -r key value; do echo "$key=$value" >> $GITHUB_ENV; done < build.txt
           echo KERNEL_FAMILY=${{ matrix.version }} >> $GITHUB_ENV
           echo KERNEL_BRANCH=$(eval "echo \$BRANCH_$(echo $KERNEL_FAMILY | tr -d ".-")") >> $GITHUB_ENV
+          echo "Building ${KERNEL_FAMILY} ${KERNEL_BRANCH}"
 
       - name: Install build dependencies
         run: |

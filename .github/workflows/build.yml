@@ -1,5 +1,6 @@
 name: Build kernels
 on:
+  workflow_dispatch:
   push:
     paths:
       - build.txt

@@ -69,7 +69,7 @@ jobs:
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
             olddefconfig -j$(nproc)
-          echo make \
+          make \
             O=out \
             ARCH=arm64 \
             LLVM=1 \
@@ -79,4 +79,25 @@ jobs:
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
-            bindeb-pkg -j$(nproc)
+            bindeb-pkg -j$(nproc) || true
+
+      - name: Upload linux-image
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-image-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/out/linux-image-*.deb
+          retention-days: 7
+
+      - name: Upload linux-headers
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-headers-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/out/linux-headers-*.deb
+          retention-days: 7
+
+      - name: Upload linux-libc-dev
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-libc-dev-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/out/linux-libc-dev-*.deb
+          retention-days: 7

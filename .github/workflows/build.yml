@@ -68,7 +68,34 @@ jobs:
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
-            olddefconfig -j$(nproc)
+            bindeb-pkg -j$(nproc) || true
+
+      - name: Upload linux-image
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-image-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/linux-image-*-1_*.deb
+          retention-days: 7
+
+      - name: Upload linux-headers
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-headers-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/linux-headers-*-1_*.deb
+          retention-days: 7
+
+      - name: Upload linux-libc-dev
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-libc-dev-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/linux-libc-dev_*-1_*.deb
+          retention-days: 7
+
+      - name: Build non-efi kernel
+        run: |
+          cd linux/out
+          ../scripts/config --disable CONFIG_EFI
+          cd ..
           make \
             O=out \
             ARCH=arm64 \
@@ -81,23 +108,16 @@ jobs:
             KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
             bindeb-pkg -j$(nproc) || true
 
-      - name: Upload linux-image
+      - name: Upload non-efi linux-image
         uses: actions/upload-artifact@v4
         with:
-          name: linux-image-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
-          path: linux/linux-image-*.deb
+          name: non-efi-linux-image-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/linux-image-*-2_*.deb
           retention-days: 7
 
-      - name: Upload linux-headers
+      - name: Upload non-efi linux-headers
         uses: actions/upload-artifact@v4
         with:
-          name: linux-headers-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
-          path: linux/linux-headers-*.deb
-          retention-days: 7
-
-      - name: Upload linux-libc-dev
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-libc-dev-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
-          path: linux/linux-libc-dev-*.deb
+          name: non-efi-linux-headers-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          path: linux/linux-headers-*-2_*.deb
           retention-days: 7

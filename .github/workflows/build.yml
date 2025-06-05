@@ -85,19 +85,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-image-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
-          path: linux/out/linux-image-*.deb
+          path: linux/linux-image-*.deb
           retention-days: 7
 
       - name: Upload linux-headers
         uses: actions/upload-artifact@v4
         with:
           name: linux-headers-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
-          path: linux/out/linux-headers-*.deb
+          path: linux/linux-headers-*.deb
           retention-days: 7
 
       - name: Upload linux-libc-dev
         uses: actions/upload-artifact@v4
         with:
           name: linux-libc-dev-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
-          path: linux/out/linux-libc-dev-*.deb
+          path: linux/linux-libc-dev-*.deb
           retention-days: 7

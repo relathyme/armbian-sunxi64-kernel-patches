@@ -68,7 +68,7 @@ jobs:
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
-            olddefconfig -j$(nproc) 2>&1 | tee -a out/build.log
+            olddefconfig -j$(nproc)
           echo make \
             O=out \
             ARCH=arm64 \
@@ -79,4 +79,4 @@ jobs:
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
-            bindeb-pkg -j$(nproc) 2>&1 | tee -a out/build.log
+            bindeb-pkg -j$(nproc)

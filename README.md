@@ -18,7 +18,7 @@ bootefi ${kernel_addr_r} ${fdt_addr_r}
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=748e04ed20d579b1cadad5e813078763b1c4e6b6 # or other commit
+$ ARMBIAN_VERSION=0fbc9e4c6b5cb817eb42530c084debb4493a3e2b # or other commit
 
 $ KERNEL_FAMILY=sunxi-6.12 # or other version
 

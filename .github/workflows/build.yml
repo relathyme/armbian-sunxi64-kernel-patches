@@ -1,0 +1,76 @@
+name: Build kernels
+on:
+  push:
+    paths:
+      - build.txt
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-22.04-arm
+    strategy:
+      matrix:
+        version: [sunxi-6.12]
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Set environment
+        run: |
+          while IFS='=' read -r key value; do echo "$key=$value" >> $GITHUB_ENV; done < build.txt
+          echo KERNEL_FAMILY=${{ matrix.version }} >> $GITHUB_ENV
+
+      - name: Install build dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync device-tree-compiler u-boot-tools zstd
+
+      - name: Get toolchain
+        run: |
+          wget https://mirrors.edge.kernel.org/pub/tools/llvm/files/$LLVM_TOOLCHAIN.tar.xz
+          tar xvf $LLVM_TOOLCHAIN.tar.xz
+
+      - name: Checkout kernel source
+        run: |
+          git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git -b $BRANCH_${{ matrix.version }} --single-branch --no-tags --depth=1
+
+      - name: Checkout armbian source
+        run: |
+          wget https://github.com/armbian/build/archive/$ARMBIAN_VERSION.tar.gz
+          tar xvf $ARMBIAN_VERSION.tar.gz
+
+      - name: Apply patches
+        run: |
+          cat ../build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.conf | sed "/^[#-]/d; /^$/d; s#\t#$PWD/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/#g" > linux/series.conf
+          cd linux
+          for patch in ../uwe5622-$KERNEL_FAMILY/*.patch; do patch -sNp1 < "$patch"; done
+          for patch in ../generic/*.patch; do patch -sNp1 < "$patch"; done
+          for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
+
+      - name: Build kernel
+        run: |
+          mkdir out
+          cp ~/kernel-patches/config_$KERNEL_FAMILY out/.config
+          echo make \
+            O=out \
+            ARCH=arm64 \
+            LLVM=1 \
+            LLVM_IAS=1 \
+            KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
+            LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
+            KBUILD_BUILD_USER="nobody" \
+            KBUILD_BUILD_HOST="localhost" \
+            KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
+            olddefconfig -j$(nproc) 2>&1 | tee -a out/build.log
+          echo make \
+            O=out \
+            ARCH=arm64 \
+            LLVM=1 \
+            LLVM_IAS=1 \
+            KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
+            LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
+            KBUILD_BUILD_USER="nobody" \
+            KBUILD_BUILD_HOST="localhost" \
+            KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
+            bindeb-pkg -j$(nproc) 2>&1 | tee -a out/build.log

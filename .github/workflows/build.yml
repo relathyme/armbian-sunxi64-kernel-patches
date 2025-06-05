@@ -18,9 +18,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set environment
+        env:
+          KERNEL_FAMILY: ${{ matrix.version }}
         run: |
           while IFS='=' read -r key value; do echo "$key=$value" >> $GITHUB_ENV; done < build.txt
-          KERNEL_FAMILY=${{ matrix.version }}
           echo KERNEL_FAMILY=$KERNEL_FAMILY >> $GITHUB_ENV
           echo KERNEL_BRANCH=$(eval "echo \$BRANCH_$(echo $KERNEL_FAMILY | tr -d ".-")") >> $GITHUB_ENV
 

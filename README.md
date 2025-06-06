@@ -1,17 +1,13 @@
+[![Build kernels](https://github.com/relathyme/armbian-sunxi64-kernel-patches/actions/workflows/build.yml/badge.svg)](https://github.com/relathyme/armbian-sunxi64-kernel-patches/actions/workflows/build.yml)
 # general notes
+- you can download prebuilt kernel releases from [actions](https://github.com/relathyme/armbian-sunxi64-kernel-patches/actions)
 - kernel configs from here are made to boot with [u-boot EFI](https://docs.u-boot.org/en/stable/develop/uefi/uefi.html), you can use some efi bootmanager like systemd-boot for them as well
-- preferable to have storage gpt-partitioned with ESP FAT32 /boot/efi partition (to simplify installation of efi boot manager) and (must?) to have u-boot on SPI
-- example boot.cmd:
-```
-load ${devtype} ${devnum} ${kernel_addr_r} /EFI/systemd/systemd-bootaa64.efi
-load ${devtype} ${devnum} ${fdt_addr_r} <your FDT file>
-bootefi ${kernel_addr_r} ${fdt_addr_r}
-```
-- these configs **won't** work with default armbian, you have to switch to efi or disable efi-related entries in kernel config
+- preferable to have storage gpt-partitioned with ESP FAT32 /boot/efi partition and (must?) to have u-boot on SPI to use EFI boot
+- if you don't use u-boot EFI you have to disable `CONFIG_EFI` kernel config, or use release prefixed with `non-efi`
 - my config additions are listed in config_diff_from_official.txt
-- tbh i don't know how to maintain kernel patches so compatibility with latest kernel releases is not guaranteed, all thanks to armbian developers for their work
-- armbian u-boot should work
+- armbian u-boot should work, refer to u-boot directory to build it manually
 - toolchain used: https://mirrors.edge.kernel.org/pub/tools/llvm/files
+- some auxiliary tools you can find in misc directory
 
 # get source
 - clone this repo to ~/kernel-patches
@@ -59,24 +55,8 @@ $ make \
     KBUILD_BUILD_USER="nobody" \
     KBUILD_BUILD_HOST="localhost" \
     KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
-    olddefconfig -j$(nproc) 2>&1 | tee -a out/build.log
-
-$ make \
-    O=out \
-    ARCH=arm64 \
-    LLVM=1 \
-    LLVM_IAS=1 \
-    KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
-    LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
-    KBUILD_BUILD_USER="nobody" \
-    KBUILD_BUILD_HOST="localhost" \
-    KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
     bindeb-pkg -j$(nproc) 2>&1 | tee -a out/build.log
 ```
-- note: it works same for rpm packages just replace `bindeb-pkg` with `binrpm-pkg`
 
-# todo
-- automate with script
-- do not use hardcoded paths
-- adapt to use not only with sunxi64 (?)
-- add gcc build
+# credits
+- [Armbian](https://github.com/armbian/build)

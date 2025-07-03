@@ -33,9 +33,5 @@ CONFIG_SQUASHFS as a module
 +CONFIG_KVM
 CONFIG_CPUFREQ_DT as a builtin
 
-for 6.14+:
-RTW88_8812AU as a module
-
 config for 6.6 based on the sunxi64-legacy config
 config for 6.12 based on the sunxi64-current config
-config for 6.14 based on the 6.12 config

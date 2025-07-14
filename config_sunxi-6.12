@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.12.30 Kernel Configuration
+# Linux/arm64 6.12.37 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="ClangBuiltLinux clang version 20.1.0"
 CONFIG_GCC_VERSION=0
@@ -2051,6 +2051,7 @@ CONFIG_ARM_SCMI_POWER_CONTROL=m
 # end of ARM System Control and Management Interface Protocol
 
 CONFIG_ARM_SCPI_PROTOCOL=y
+# CONFIG_ARM_SDE_INTERFACE is not set
 # CONFIG_FIRMWARE_MEMMAP is not set
 CONFIG_DMIID=y
 CONFIG_DMI_SYSFS=y

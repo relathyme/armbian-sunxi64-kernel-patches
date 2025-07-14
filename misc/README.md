@@ -19,7 +19,7 @@ $ sudo update-dtbs 6.12.30-0fbc9e4
 - u-boot script used to boot efi binary
 - compile to u-boot format with:
 ```bash
-$ sudo mkimage -C none -A arm -T script -d /boot/efi/boot.cmd /boot/efi/boot.scr
+$ sudo mkimage -C none -A arm -T script -d /boot/boot.cmd /boot/boot.scr
 ```
 
 # env.txt
@@ -30,3 +30,4 @@ $ sudo mkimage -C none -A arm -T script -d /boot/efi/boot.cmd /boot/efi/boot.scr
 ```
 overlays=
 ```
+- `bootargs` is a kernel cmdline

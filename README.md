@@ -75,17 +75,17 @@ qemu-system-arm \
    ,g$$P""       """Y$$.".     OS: Orange Pi 2.0.8 Buster armv7l
   ,$$P'              `$$$.     Host: Xunlong Orange Pi PC
 ',$$P       ,ggs.     `$$b:    Kernel: Linux 6.12.37-b313587
-`d$$'     ,$P"'   .    $$$     Uptime: 25 mins
- $$P      d$'     ,    $$P     Packages: 444 (dpkg)
+`d$$'     ,$P"'   .    $$$     Uptime: 15 mins
+ $$P      d$'     ,    $$P     Packages: 442 (dpkg)
  $$:      $$.   -    ,d$$'     Shell: bash 5.0.3
- $$;      Y$b._   _,d$P'       Terminal: /dev/pts/0
+ $$;      Y$b._   _,d$P'       Terminal: vt220
  Y$$.    `.`"Y$$$$P"'          CPU: sun8i-h3 (4)
- `$$b      "-.__               Memory: 103.78 MiB / 996.77 MiB (10%)
-  `Y$$b                        Swap: 0 B / 498.38 MiB (0%)
-   `Y$$.                       Disk (/): 1.32 GiB / 7.68 GiB (17%) - ext4
-     `$$b.                     Disk (/var/log): 1.00 MiB / 48.40 MiB (2%) - ext4
-       `Y$$b.                  Local IP (eth0): 192.168.x.x/24
-         `"Y$b._               Locale: en_US.UTF-8
+ `$$b      "-.__               Memory: 102.48 MiB / 996.77 MiB (10%)
+  `Y$$b                        Swap: Disabled
+   `Y$$.                       Disk (/): 1.34 GiB / 7.68 GiB (17%) - ext4
+     `$$b.                     Local IP (eth0): 192.168.x.x/24
+       `Y$$b.                  Locale: en_US.UTF-8
+         `"Y$b._
              `""""
 ```
 

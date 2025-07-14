@@ -1,4 +1,4 @@
-- tested : atf v2.12.2 with u-boot v2025.04
+- tested : atf v2.12.4 with u-boot v2025.07
 
 # my config additions:
 ```

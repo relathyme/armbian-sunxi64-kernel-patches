@@ -1,16 +1,8 @@
-[![Build kernels](https://github.com/relathyme/armbian-sunxi64-kernel-patches/actions/workflows/build.yml/badge.svg)](https://github.com/relathyme/armbian-sunxi64-kernel-patches/actions/workflows/build.yml)
-# general notes
-- you can download prebuilt kernel releases from [actions](https://github.com/relathyme/armbian-sunxi64-kernel-patches/actions)
-- kernel configs from here are made to boot with [u-boot EFI](https://docs.u-boot.org/en/stable/develop/uefi/uefi.html), you can use some efi bootmanager like systemd-boot for them as well
-- preferable to have storage gpt-partitioned with ESP FAT32 /boot/efi partition and (must?) to have u-boot on SPI to use EFI boot
-- if you don't use u-boot EFI you have to disable `CONFIG_EFI` kernel config, or use release prefixed with `non-efi`
-- my config additions are listed in config_diff_from_official.txt
-- armbian u-boot should work, refer to u-boot directory to build it manually
-- toolchain used: https://mirrors.edge.kernel.org/pub/tools/llvm/files
-- some auxiliary tools you can find in misc directory
+# !!! experimental !!!
+- playing around [qemu orangepi-pc emulator](https://www.qemu.org/docs/master/system/arm/orangepi.html)
 
 # get source
-- clone this repo to ~/kernel-patches
+- clone this repo to ~/kernel-patches (make sure you clone corrent branch)
 ```bash
 $ cd ~/
 
@@ -47,16 +39,17 @@ $ cp ~/kernel-patches/config_$KERNEL_FAMILY out/.config
 
 $ make \
     O=out \
-    ARCH=arm64 \
+    ARCH=arm \
     LLVM=1 \
     LLVM_IAS=1 \
-    KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
+    KCFLAGS="-march=armv7-a -mtune=cortex-a7 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
     LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
     KBUILD_BUILD_USER="nobody" \
     KBUILD_BUILD_HOST="localhost" \
     KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
     bindeb-pkg -j$(nproc) 2>&1 | tee -a out/build.log
 ```
+- building headers package fails for some reason
 
 # credits
 - [Armbian](https://github.com/armbian/build)

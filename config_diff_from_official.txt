@@ -8,9 +8,6 @@ CONFIG_LSM="landlock,yama,integrity,apparmor"
 +ZRAM_BACKEND_ZSTD
 +ZRAM_DEF_COMP_ZSTD
 -ZRAM_BACKEND_LZO
-+CONFIG_MODULE_COMPRESS
-+CONFIG_MODULE_COMPRESS_ZSTD
-+CONFIG_MODULE_DECOMPRESS
 +CONFIG_DEBUG_INFO_NONE
 -CONFIG_EXT2_FS
 -CONFIG_EXT3_FS
@@ -28,3 +25,4 @@ CONFIG_CPUFREQ_DT as a builtin
 config for 6.12 based on the sunxi-current config
 
 CONFIG_PREEMPT_DYNAMIC, CONFIG_EFI_ZBOOT, CONFIG_LTO_CLANG_* were not available for armhf
+CONFIG_MODULE_COMPRESS not enabled due to debian 10 doesnt support compressed modules

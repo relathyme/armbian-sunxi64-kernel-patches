@@ -51,5 +51,43 @@ $ make \
 ```
 - building headers package fails for some reason
 
+# boot qemu
+- using official image
+- prepare image file:
+```bash
+$ qemu-img convert -p -f raw -O qcow2 Orangepipc_2.0.8_debian_buster_server_linux5.4.65.img Orangepipc_2.0.8_debian_buster_server_linux5.4.65.qcow2
+$ qemu-img resize -f qcow2 Orangepipc_2.0.8_debian_buster_server_linux5.4.65.qcow2 8G
+```
+- boot:
+```bash
+qemu-system-arm \
+        -M orangepi-pc \
+        -accel tcg,thread=multi \
+        -sd Orangepipc_2.0.8_debian_buster_server_linux5.4.65.qcow2 \
+        -nic user \
+        -nographic
+```
+
+# fetch
+```
+        _,met$$$$$gg.          orangepi@orangepipc
+     ,g$$$$$$$$$$$$$$$P.       -------------------
+   ,g$$P""       """Y$$.".     OS: Orange Pi 2.0.8 Buster armv7l
+  ,$$P'              `$$$.     Host: Xunlong Orange Pi PC
+',$$P       ,ggs.     `$$b:    Kernel: Linux 6.12.37-b313587
+`d$$'     ,$P"'   .    $$$     Uptime: 25 mins
+ $$P      d$'     ,    $$P     Packages: 444 (dpkg)
+ $$:      $$.   -    ,d$$'     Shell: bash 5.0.3
+ $$;      Y$b._   _,d$P'       Terminal: /dev/pts/0
+ Y$$.    `.`"Y$$$$P"'          CPU: sun8i-h3 (4)
+ `$$b      "-.__               Memory: 103.78 MiB / 996.77 MiB (10%)
+  `Y$$b                        Swap: 0 B / 498.38 MiB (0%)
+   `Y$$.                       Disk (/): 1.32 GiB / 7.68 GiB (17%) - ext4
+     `$$b.                     Disk (/var/log): 1.00 MiB / 48.40 MiB (2%) - ext4
+       `Y$$b.                  Local IP (eth0): 192.168.x.x/24
+         `"Y$b._               Locale: en_US.UTF-8
+             `""""
+```
+
 # credits
 - [Armbian](https://github.com/armbian/build)

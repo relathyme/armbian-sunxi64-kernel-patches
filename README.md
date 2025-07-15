@@ -37,7 +37,7 @@ $ make \
     ARCH=arm \
     LLVM=1 \
     LLVM_IAS=1 \
-    KCFLAGS="-march=armv7-a -mtune=cortex-a7" \
+    KCFLAGS="-march=armv7-a -mtune=cortex-a7 -Wno-incompatible-pointer-types-discards-qualifiers" \
     LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
     KBUILD_BUILD_USER="nobody" \
     KBUILD_BUILD_HOST="localhost" \

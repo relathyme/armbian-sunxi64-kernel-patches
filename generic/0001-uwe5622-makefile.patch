@@ -1,7 +1,0 @@
---- a/drivers/net/wireless/Makefile
-+++ b/drivers/net/wireless/Makefile
-@@ -25,3 +25,4 @@
- 
- obj-$(CONFIG_WLAN) += legacy/
- obj-$(CONFIG_WLAN) += virtual/
-+obj-$(CONFIG_SPARD_WLAN_SUPPORT) += uwe5622/

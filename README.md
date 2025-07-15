@@ -23,13 +23,8 @@ $ cat ~/build-$ARMBIAN_VERSION/patch/kernel/archive/$KERNEL_FAMILY/series.conf |
 
 # apply patches
 ```bash
-$ for patch in ~/kernel-patches/uwe5622-$KERNEL_FAMILY/*.patch; do patch -sNp1 < "$patch"; done
-
-$ for patch in ~/kernel-patches/generic/*.patch; do patch -sNp1 < "$patch"; done
-
 $ for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
 ```
-- uwe5622 patches are extracted according to https://github.com/armbian/build/blob/main/lib/functions/compilation/patch/drivers_network.sh (function driver_uwe5622())
 
 # build debian kernel package
 ```bash
@@ -42,7 +37,7 @@ $ make \
     ARCH=arm \
     LLVM=1 \
     LLVM_IAS=1 \
-    KCFLAGS="-march=armv7-a -mtune=cortex-a7 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
+    KCFLAGS="-march=armv7-a -mtune=cortex-a7" \
     LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
     KBUILD_BUILD_USER="nobody" \
     KBUILD_BUILD_HOST="localhost" \

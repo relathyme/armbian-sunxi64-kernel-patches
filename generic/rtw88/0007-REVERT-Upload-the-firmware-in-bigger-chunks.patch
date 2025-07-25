@@ -1,0 +1,185 @@
+reverted:
+--- b/drivers/net/wireless/realtek/rtw88/hci.h
++++ a/drivers/net/wireless/realtek/rtw88/hci.h
+@@ -19,8 +19,6 @@
+ 	void (*link_ps)(struct rtw_dev *rtwdev, bool enter);
+ 	void (*interface_cfg)(struct rtw_dev *rtwdev);
+ 	void (*dynamic_rx_agg)(struct rtw_dev *rtwdev, bool enable);
+-	void (*write_firmware_page)(struct rtw_dev *rtwdev, u32 page,
+-				    const u8 *data, u32 size);
+ 
+ 	int (*write_data_rsvd_page)(struct rtw_dev *rtwdev, u8 *buf, u32 size);
+ 	int (*write_data_h2c)(struct rtw_dev *rtwdev, u8 *buf, u32 size);
+@@ -81,12 +79,6 @@
+ 		rtwdev->hci.ops->dynamic_rx_agg(rtwdev, enable);
+ }
+ 
+-static inline void rtw_hci_write_firmware_page(struct rtw_dev *rtwdev, u32 page,
+-					       const u8 *data, u32 size)
+-{
+-	rtwdev->hci.ops->write_firmware_page(rtwdev, page, data, size);
+-}
+-
+ static inline int
+ rtw_hci_write_data_rsvd_page(struct rtw_dev *rtwdev, u8 *buf, u32 size)
+ {
+reverted:
+--- b/drivers/net/wireless/realtek/rtw88/mac.c
++++ a/drivers/net/wireless/realtek/rtw88/mac.c
+@@ -854,8 +854,8 @@
+ 	}
+ }
+ 
++static void
++write_firmware_page(struct rtw_dev *rtwdev, u32 page, const u8 *data, u32 size)
+-void rtw_write_firmware_page(struct rtw_dev *rtwdev, u32 page,
+-			     const u8 *data, u32 size)
+ {
+ 	u32 val32;
+ 	u32 block_nr;
+@@ -885,7 +885,6 @@
+ 		rtw_write32(rtwdev, write_addr, le32_to_cpu(remain_data));
+ 	}
+ }
+-EXPORT_SYMBOL(rtw_write_firmware_page);
+ 
+ static int
+ download_firmware_legacy(struct rtw_dev *rtwdev, const u8 *data, u32 size)
+@@ -903,13 +902,11 @@
+ 	rtw_write8_set(rtwdev, REG_MCUFW_CTRL, BIT_FWDL_CHK_RPT);
+ 
+ 	for (page = 0; page < total_page; page++) {
++		write_firmware_page(rtwdev, page, data, DLFW_PAGE_SIZE_LEGACY);
+-		rtw_hci_write_firmware_page(rtwdev, page, data,
+-					    DLFW_PAGE_SIZE_LEGACY);
+ 		data += DLFW_PAGE_SIZE_LEGACY;
+ 	}
+ 	if (last_page_size)
++		write_firmware_page(rtwdev, page, data, last_page_size);
+-		rtw_hci_write_firmware_page(rtwdev, page, data,
+-					    last_page_size);
+ 
+ 	if (!check_hw_ready(rtwdev, REG_MCUFW_CTRL, BIT_FWDL_CHK_RPT, 1)) {
+ 		rtw_err(rtwdev, "failed to check download firmware report\n");
+reverted:
+--- b/drivers/net/wireless/realtek/rtw88/mac.h
++++ a/drivers/net/wireless/realtek/rtw88/mac.h
+@@ -32,8 +32,6 @@
+ 			 u8 primary_ch_idx);
+ int rtw_mac_power_on(struct rtw_dev *rtwdev);
+ void rtw_mac_power_off(struct rtw_dev *rtwdev);
+-void rtw_write_firmware_page(struct rtw_dev *rtwdev, u32 page,
+-			     const u8 *data, u32 size);
+ int rtw_download_firmware(struct rtw_dev *rtwdev, struct rtw_fw_state *fw);
+ int rtw_mac_init(struct rtw_dev *rtwdev);
+ void rtw_mac_flush_queues(struct rtw_dev *rtwdev, u32 queues, bool drop);
+reverted:
+--- b/drivers/net/wireless/realtek/rtw88/pci.c
++++ a/drivers/net/wireless/realtek/rtw88/pci.c
+@@ -12,7 +12,6 @@
+ #include "fw.h"
+ #include "ps.h"
+ #include "debug.h"
+-#include "mac.h"
+ 
+ static bool rtw_disable_msi;
+ static bool rtw_pci_disable_aspm;
+@@ -1603,7 +1602,6 @@
+ 	.link_ps = rtw_pci_link_ps,
+ 	.interface_cfg = rtw_pci_interface_cfg,
+ 	.dynamic_rx_agg = NULL,
+-	.write_firmware_page = rtw_write_firmware_page,
+ 
+ 	.read8 = rtw_pci_read8,
+ 	.read16 = rtw_pci_read16,
+reverted:
+--- b/drivers/net/wireless/realtek/rtw88/sdio.c
++++ a/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -10,7 +10,6 @@
+ #include <linux/mmc/host.h>
+ #include <linux/mmc/sdio_func.h>
+ #include "main.h"
+-#include "mac.h"
+ #include "debug.h"
+ #include "fw.h"
+ #include "ps.h"
+@@ -1156,7 +1155,6 @@
+ 	.link_ps = rtw_sdio_link_ps,
+ 	.interface_cfg = rtw_sdio_interface_cfg,
+ 	.dynamic_rx_agg = NULL,
+-	.write_firmware_page = rtw_write_firmware_page,
+ 
+ 	.read8 = rtw_sdio_read8,
+ 	.read16 = rtw_sdio_read16,
+reverted:
+--- b/drivers/net/wireless/realtek/rtw88/usb.c
++++ a/drivers/net/wireless/realtek/rtw88/usb.c
+@@ -164,60 +164,6 @@
+ 	rtw_usb_write(rtwdev, addr, val, 4);
+ }
+ 
+-static void rtw_usb_write_firmware_page(struct rtw_dev *rtwdev, u32 page,
+-					const u8 *data, u32 size)
+-{
+-	struct rtw_usb *rtwusb = rtw_get_usb_priv(rtwdev);
+-	struct usb_device *udev = rtwusb->udev;
+-	u32 addr = FW_START_ADDR_LEGACY;
+-	u8 *data_dup, *buf;
+-	u32 n, block_size;
+-	int ret;
+-
+-	switch (rtwdev->chip->id) {
+-	case RTW_CHIP_TYPE_8723D:
+-		block_size = 254;
+-		break;
+-	default:
+-		block_size = 196;
+-		break;
+-	}
+-
+-	data_dup = kmemdup(data, size, GFP_KERNEL);
+-	if (!data_dup)
+-		return;
+-
+-	buf = data_dup;
+-
+-	rtw_write32_mask(rtwdev, REG_MCUFW_CTRL, BIT_ROM_PGE, page);
+-
+-	while (size > 0) {
+-		if (size >= block_size)
+-			n = block_size;
+-		else if (size >= 8)
+-			n = 8;
+-		else
+-			n = 1;
+-
+-		ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+-				      RTW_USB_CMD_REQ, RTW_USB_CMD_WRITE,
+-				      addr, 0, buf, n, 500);
+-		if (ret != n) {
+-			if (ret != -ENODEV)
+-				rtw_err(rtwdev,
+-					"write 0x%x len %d failed: %d\n",
+-					addr, n, ret);
+-			break;
+-		}
+-
+-		addr += n;
+-		buf += n;
+-		size -= n;
+-	}
+-
+-	kfree(data_dup);
+-}
+-
+ static int dma_mapping_to_ep(enum rtw_dma_mapping dma_mapping)
+ {
+ 	switch (dma_mapping) {
+@@ -869,7 +815,6 @@
+ 	.link_ps = rtw_usb_link_ps,
+ 	.interface_cfg = rtw_usb_interface_cfg,
+ 	.dynamic_rx_agg = rtw_usb_dynamic_rx_agg,
+-	.write_firmware_page = rtw_usb_write_firmware_page,
+ 
+ 	.write8  = rtw_usb_write8,
+ 	.write16 = rtw_usb_write16,

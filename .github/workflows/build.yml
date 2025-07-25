@@ -51,6 +51,7 @@ jobs:
           cd linux
           for patch in ../uwe5622-$KERNEL_FAMILY/*.patch; do patch -Np1 < "$patch"; done
           for patch in ../generic/*.patch; do patch -Np1 < "$patch"; done
+          if [ $KERNEL_FAMILY = sunxi-6.12 ]; then for patch in ../generic/rtw88/*.patch; do patch -Np1 < "$patch"; done; fi
           for patch in $(cat series.conf); do patch -p1 < "$patch"; done
 
       - name: Build kernel

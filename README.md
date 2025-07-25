@@ -37,6 +37,10 @@ $ for patch in ~/kernel-patches/generic/*.patch; do patch -sNp1 < "$patch"; done
 
 $ for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
 ```
+- apply backported rtw88 in case you need RTL8812AU/RTL8821AU support (ONLY 6.12, optional):
+```bash
+$ for patch in ~/kernel-patches/generic/rtw88/*.patch; do patch -sNp1 < "$patch"; done
+```
 - uwe5622 patches are extracted according to https://github.com/armbian/build/blob/main/lib/functions/compilation/patch/drivers_network.sh (function driver_uwe5622())
 
 # build debian kernel package

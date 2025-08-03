@@ -30,3 +30,13 @@ $ sudo mkimage -C none -A arm -T script -d /boot/efi/boot.cmd /boot/efi/boot.scr
 ```
 overlays=
 ```
+
+# generate_mac.sh
+- usage: `generate_mac.sh <interface>`
+- sets random mac address for interface
+- as a service: `systemctl enable mac-spoof@<interface>`
+
+# generate_hostname.sh
+- usage: `generate_hostname.sh`
+- sets random hostname
+- as a service: `systemctl enable hostname-spoof`, also requires to remove /etc/hostname

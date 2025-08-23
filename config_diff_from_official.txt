@@ -30,5 +30,4 @@ CONFIG_CPUFREQ_DT as a builtin
 CONFIG_RTW88_8821AU as a module
 CONFIG_RTW88_8812AU as a module
 
-config for 6.6 based on the sunxi64-legacy config
 config for 6.12 based on the sunxi64-current config

@@ -24,11 +24,12 @@ jobs:
           while IFS='=' read -r key value; do echo "$key=$value" >> $GITHUB_ENV; done < build.txt
           echo KERNEL_FAMILY=$KERNEL_FAMILY >> $GITHUB_ENV
           echo KERNEL_BRANCH=$(cat build.txt | grep BRANCH_$(echo $KERNEL_FAMILY | tr -d ".-") | cut -d'=' -f2) >> $GITHUB_ENV
+          echo RUN_TIMESTAMP="$(date -Ru)" >> $GITHUB_ENV
 
       - name: Install build dependencies
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync device-tree-compiler u-boot-tools zstd
+          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync device-tree-compiler u-boot-tools zstd ccache
 
       - name: Get toolchain
         run: |
@@ -68,7 +69,8 @@ jobs:
             LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
-            KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
+            KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \
+            CC="ccache clang" \
             bindeb-pkg -j$(nproc) || true
 
       - name: Upload kernel debs
@@ -95,7 +97,8 @@ jobs:
             LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
-            KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
+            KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \
+            CC="ccache clang" \
             bindeb-pkg -j$(nproc) || true
 
       - name: Upload non-EFI kernel debs

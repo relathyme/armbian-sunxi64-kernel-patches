@@ -14,7 +14,7 @@
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=a9b84c88f249db10a8ae73dce8e165d449c2460a # or other commit
+$ ARMBIAN_VERSION=42cc7a5179e054b95ad41a412a5e509280649afb # or other commit
 
 $ KERNEL_FAMILY=sunxi-6.12 # or other version
 

@@ -39,4 +39,5 @@ overlays=
 # generate_hostname.sh
 - usage: `generate_hostname.sh`
 - sets random hostname
-- as a service: `systemctl enable hostname-spoof`, also requires to remove /etc/hostname
+- system must have `127.0.1.1	localhost` record in /etc/hosts (tab, not space)
+- as a service: `systemctl enable hostname-spoof`

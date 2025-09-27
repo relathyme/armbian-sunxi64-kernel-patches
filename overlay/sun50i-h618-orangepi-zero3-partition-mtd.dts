@@ -1,0 +1,24 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&spi0>;
+		__overlay__ {
+			flash@0 {
+				partition@2 {
+					label = "fs";
+					reg = <0x00100000 0x00f00000>;
+				};
+				partition@1 {
+					label = "env";
+					reg = <0x000f0000 0x00010000>;
+				};
+				partition@0 {
+					label = "bootloader";
+					reg = <0x00000000 0x000f0000>;
+				};
+			};
+		};
+	};
+};

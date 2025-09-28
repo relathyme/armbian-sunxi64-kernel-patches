@@ -41,3 +41,10 @@ overlays=
 - sets random hostname
 - system must have `127.0.1.1	localhost` record in /etc/hosts (tab, not space)
 - as a service: `systemctl enable hostname-spoof`
+
+# generate_kaslrseed.sh
+- usage: `generate_kaslrseed.sh`, but better to use it with `systemctl start kaslr-seed` to isolate tmp directory
+- generates kaslr seed for next boot
+- OVERLAY_PATH must be set in script and `kaslr-seed.dtbo` overlay must be enabled in your env
+- make sure your overlay dir is not readable for non-root users
+- as a service: `systemctl enable kaslr-seed`

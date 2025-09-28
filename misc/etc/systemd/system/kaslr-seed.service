@@ -1,0 +1,11 @@
+[Unit]
+Description=Generate KASLR seed for next boot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/generate_kaslrseed.sh
+RemainAfterExit=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

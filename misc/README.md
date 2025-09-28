@@ -10,7 +10,7 @@ $ sudo update-dtbs
 $ sudo update-dtbs 6.12.30-0fbc9e4
 ```
 
-# update-dtbs.vars
+# update-dtbs.conf
 - configuration for `update-dtbs`
 - `VENDOR`, `DTB`, `BOOT_DTB_DIR` are mandatory
 - `OVERLAYS` is a space-delimited list, can be removed if overlays are not used

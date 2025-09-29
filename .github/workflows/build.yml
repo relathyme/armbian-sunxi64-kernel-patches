@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-22.04-arm
     strategy:
       matrix:
-        version: [sunxi-6.12, sunxi-6.16]
+        version: [sunxi-6.12]
 
     steps:
       - name: Checkout sources
@@ -29,7 +29,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync device-tree-compiler u-boot-tools zstd ccache libdw-dev
+          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync device-tree-compiler u-boot-tools zstd ccache
 
       - name: Get toolchain
         run: |

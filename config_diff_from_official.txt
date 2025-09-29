@@ -30,4 +30,14 @@ CONFIG_CPUFREQ_DT as a builtin
 CONFIG_RTW88_8821AU as a module
 CONFIG_RTW88_8812AU as a module
 
+for 6.16+:
+# here also a lot of options i enabled for 6.12 were enabled by default
+-CONFIG_ZRAM_BACKEND_LZ4
+-CONFIG_ZRAM_BACKEND_LZ4HC
+-CONFIG_ZRAM_BACKEND_DEFLATE
+-CONFIG_ZRAM_BACKEND_842
+-CONFIG_ZRAM_BACKEND_LZO
+CONFIG_XFS_FS as a module
+
 config for 6.12 based on the sunxi64-current config
+config for 6.16 based on the sunxi64-edge config

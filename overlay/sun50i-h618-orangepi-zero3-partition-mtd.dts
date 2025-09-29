@@ -3,6 +3,7 @@
 
 / {
 	fragment@0 {
+		compatible = "xunlong,orangepi-zero3";
 		target = <&spi0>;
 		__overlay__ {
 			flash@0 {

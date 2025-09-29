@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-22.04-arm
     strategy:
       matrix:
-        version: [sunxi-6.12, sunxi-6.15]
+        version: [sunxi-6.12, sunxi-6.16]
 
     steps:
       - name: Checkout sources

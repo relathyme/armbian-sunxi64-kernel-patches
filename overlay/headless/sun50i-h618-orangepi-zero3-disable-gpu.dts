@@ -1,0 +1,12 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "xunlong,orangepi-zero3";
+	fragment@0 {
+		target = <&gpu>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};

@@ -4,21 +4,35 @@
 / {
 	compatible = "xunlong,orangepi-zero3";
 	fragment@0 {
-		target = <&gpu>;
+		target = <&hdmi>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
 	fragment@1 {
-		target = <&de>;
+		target = <&hdmi_phy>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
 	fragment@2 {
-		target-path = "/soc/video-codec@1c0e000";
+		target = <&tcon_top>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@3 {
+		target = <&tcon_tv>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@4 {
+		target = <&de>;
 		__overlay__ {
 			status = "disabled";
 		};

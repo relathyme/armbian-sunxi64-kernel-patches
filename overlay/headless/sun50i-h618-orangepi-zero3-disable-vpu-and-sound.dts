@@ -58,4 +58,11 @@
 			status = "disabled";
 		};
 	};
+
+	fragment@8 {
+		target-path = "/soc/video-codec@1c0e000";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
 };

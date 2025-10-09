@@ -1,0 +1,94 @@
+name: Build u-boot
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - u-boot/build.txt
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        version: [orangepi_zero3, orangepi_zero2, orangepi_zero2w]
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Set environment
+        env:
+          DEVICE: ${{ matrix.version }}
+        run: |
+          while IFS='=' read -r key value; do echo "$key=$value" >> $GITHUB_ENV; done < u-boot/build.txt
+          echo DEVICE=$DEVICE >> $GITHUB_ENV
+
+      - name: Install build dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync libdw-dev python3-setuptools swig python3-dev libgnutls28-dev zstd ccache
+
+      - name: Get toolchain
+        run: |
+          wget https://developer.arm.com/-/media/Files/downloads/$TOOLCHAIN.tar.xz
+          TOOLCHAIN_NAME=$(basename $TOOLCHAIN)
+          tar xvf $TOOLCHAIN_NAME.tar.xz
+          echo $PWD/$TOOLCHAIN_NAME/bin >> $GITHUB_PATH
+
+      - name: Checkout ATF source
+        run: |
+          git clone https://github.com/ARM-software/arm-trusted-firmware -b $ATF_BRANCH --single-branch --no-tags --depth=1 atf
+          rm -rf atf/.git
+
+      - name: Checkout u-boot source
+        run: |
+          git clone https://github.com/u-boot/u-boot -b $UBOOT_BRANCH --single-branch --no-tags --depth=1 uboot
+          rm -rf uboot/.git
+
+      - name: Apply patches
+        run: |
+          cd uboot
+          for patch in ../u-boot/*.patch; do patch -p1 < "$patch"; done
+
+      - name: Build ATF
+        run: |
+          cd atf
+          make \
+            PLAT=sun50i_h616 \
+            SOURCE_DATE_EPOCH=$BUILD_TIMESTAMP \
+            CROSS_COMPILE=aarch64-none-elf- \
+            -j$(nproc)
+          echo BL31=$PWD/build/sun50i_h616/release/bl31.bin >> $GITHUB_ENV
+
+      - name: Build u-boot
+        run: |
+          cd uboot
+          make \
+            O=out \
+            -j$(nproc) \
+            "$DEVICE"_defconfig
+          cd out
+          ../scripts/config -e CONFIG_EFI_RT_VOLATILE_STORE
+          ../scripts/config -e CONFIG_CMD_UFETCH
+          cd ..
+          make \
+            O=out \
+            SOURCE_DATE_EPOCH=$BUILD_TIMESTAMP \
+            CROSS_COMPILE=aarch64-none-elf- \
+            -j$(nproc)
+
+      - name: Prepare artifacts
+        run: |
+          mkdir artifacts
+          cp $BL31 artifacts/
+          cp uboot/out/u-boot-sunxi-with-spl.bin artifacts/
+          cp uboot/out/.config artifacts/uboot-config
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: u-boot-${{ env.DEVICE }}-${{ env.UBOOT_BRANCH }}
+          path: |
+            artifacts/*
+          retention-days: 90

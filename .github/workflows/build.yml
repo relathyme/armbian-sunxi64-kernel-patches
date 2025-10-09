@@ -2,6 +2,8 @@ name: Build kernels
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
     paths:
       - build.txt
 

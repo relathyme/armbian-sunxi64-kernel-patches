@@ -45,6 +45,6 @@ overlays=
 # generate_kaslrseed.sh
 - usage: `generate_kaslrseed.sh`, but better to use it with `systemctl start kaslr-seed` to isolate tmp directory
 - generates kaslr seed for next boot
-- OVERLAY_PATH must be set in script and `kaslr-seed.dtbo` overlay must be enabled in your env
+- OVERLAY_PATH must be set in script and `kaslr-seed` overlay must be enabled in your env
 - make sure your overlay dir is not readable for non-root users
 - as a service: `systemctl enable kaslr-seed`

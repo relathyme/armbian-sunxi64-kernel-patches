@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# must have misc/usr/local/bin/update-dtbs to be installed and configured
+
+update-dtbs "$1"

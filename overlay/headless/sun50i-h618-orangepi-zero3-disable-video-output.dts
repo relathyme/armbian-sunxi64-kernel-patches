@@ -37,4 +37,11 @@
 			status = "disabled";
 		};
 	};
+
+	fragment@5 {
+		target-path = "/connector";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
 };

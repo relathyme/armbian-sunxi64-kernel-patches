@@ -57,7 +57,7 @@ jobs:
           for patch in ../generic/*.patch; do patch -Np1 < "$patch"; done
           if [ $KERNEL_FAMILY = sunxi-6.12 ]; then for patch in ../generic/rtw88/*.patch; do patch -Np1 < "$patch"; done; fi
           for patch in $(cat series.conf); do patch -p1 < "$patch"; done
-          if [ -n "$KERNEL_PATCH" ]; then for patch in "$KERNEL_PATCH"; do patch -p1 < ../generic/"$patch"; done; fi
+          if [ -n "$KERNEL_PATCH" ]; then for patch in $KERNEL_PATCH; do patch -p1 < ../generic/"$patch"; done; fi
 
       - name: Prepare kernel
         run: |

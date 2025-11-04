@@ -26,6 +26,7 @@ jobs:
           while IFS='=' read -r key value; do echo "$key=$value" >> $GITHUB_ENV; done < build.txt
           echo KERNEL_FAMILY=$KERNEL_FAMILY >> $GITHUB_ENV
           echo KERNEL_BRANCH=$(cat build.txt | grep BRANCH_$(echo $KERNEL_FAMILY | tr -d ".-") | cut -d'=' -f2) >> $GITHUB_ENV
+          echo KERNEL_PATCH=$(cat build.txt | grep PATCH_$(echo $KERNEL_FAMILY | tr -d ".-") | cut -d'=' -f2) >> $GITHUB_ENV
           echo RUN_TIMESTAMP="$(date -Ru)" >> $GITHUB_ENV
 
       - name: Install build dependencies
@@ -56,6 +57,7 @@ jobs:
           for patch in ../generic/*.patch; do patch -Np1 < "$patch"; done
           if [ $KERNEL_FAMILY = sunxi-6.12 ]; then for patch in ../generic/rtw88/*.patch; do patch -Np1 < "$patch"; done; fi
           for patch in $(cat series.conf); do patch -p1 < "$patch"; done
+          if [ -n "$KERNEL_PATCH" ]; then for patch in "$KERNEL_PATCH"; do patch -p1 < ../generic/"$patch"; done; fi
 
       - name: Build kernel
         run: |

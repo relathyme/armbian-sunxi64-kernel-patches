@@ -84,7 +84,7 @@ jobs:
       - name: Upload kernel debs
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          name: linux-${{ env.KERNELRELEASE }}-${{ env.KERNEL_FAMILY }}
           path: |
             linux/linux-image-*-1_*.deb
             linux/linux-headers-*-1_*.deb
@@ -112,7 +112,7 @@ jobs:
       - name: Upload non-EFI kernel debs
         uses: actions/upload-artifact@v4
         with:
-          name: non-efi-linux-${{ env.KERNEL_BRANCH }}-${{ env.KERNEL_FAMILY }}-${{ env.ARMBIAN_VERSION }}
+          name: non-efi-linux-${{ env.KERNELRELEASE }}-${{ env.KERNEL_FAMILY }}
           path: |
             linux/linux-image-*-2_*.deb
             linux/linux-headers-*-2_*.deb

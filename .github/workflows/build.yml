@@ -73,7 +73,7 @@ jobs:
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \
             CC="ccache clang" \
-            bindeb-pkg -j$(nproc) || true
+            bindeb-pkg -j$(nproc)
 
       - name: Upload kernel debs
         uses: actions/upload-artifact@v4
@@ -101,7 +101,7 @@ jobs:
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \
             CC="ccache clang" \
-            bindeb-pkg -j$(nproc) || true
+            bindeb-pkg -j$(nproc)
 
       - name: Upload non-EFI kernel debs
         uses: actions/upload-artifact@v4

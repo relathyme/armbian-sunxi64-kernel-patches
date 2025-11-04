@@ -59,15 +59,11 @@ jobs:
           for patch in $(cat series.conf); do patch -p1 < "$patch"; done
           if [ -n "$KERNEL_PATCH" ]; then for patch in $KERNEL_PATCH; do patch -p1 < ../generic/"$patch"; done; fi
 
-      - name: Prepare kernel
+      - name: Build kernel
         run: |
           cd linux
           mkdir out
           cp ../config_$KERNEL_FAMILY out/.config
-          echo KERNELRELEASE=$(make -s O=out LOCALVERSION="-${ARMBIAN_VERSION:0:7}" kernelrelease) | tee -a $GITHUB_ENV
-
-      - name: Build kernel
-        run: |
           make \
             O=out \
             ARCH=arm64 \

@@ -1,4 +1,4 @@
 ARMBIAN_VERSION=aae05ba5b59bdcc47e0b38ded97cb7b6d312507a
 LLVM_TOOLCHAIN=llvm-21.1.0-aarch64
 BRANCH_sunxi612=v6.12.54
-PATCH_sunxi612=upstream/patch-6.12.54-55.patch upstream/patch-6.12.55-56.patch upstream/patch-6.12.56-57.patch
+PATCH_sunxi612=upstream/patch-6.12.54-55.patch upstream/patch-6.12.55-56.patch upstream/patch-6.12.56-57.patch upstream/patch-6.12.57-58.patch

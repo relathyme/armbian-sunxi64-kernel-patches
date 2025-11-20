@@ -55,7 +55,7 @@ $ make \
     LLVM=1 \
     LLVM_IAS=1 \
     KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
-    LOCALVERSION="-${ARMBIAN_VERSION:0:7}" \
+    LOCALVERSION="-r${ARMBIAN_VERSION:0:12}" \
     KBUILD_BUILD_USER="nobody" \
     KBUILD_BUILD_HOST="localhost" \
     KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \

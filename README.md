@@ -37,6 +37,14 @@ $ for patch in ~/kernel-patches/generic/*.patch; do patch -sNp1 < "$patch"; done
 
 $ for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
 ```
+- add [amneziawg support](https://github.com/amnezia-vpn/amneziawg-linux-kernel-module) (tested only with 6.12, optional)
+```bash
+$ git clone https://github.com/amnezia-vpn/amneziawg-linux-kernel-module awg -b v1.0.20251104
+
+$ ln -s $PWD/awg/src drivers/net/amneziawg
+
+$ for patch in ~/kernel-patches/generic/awg/*.patch; do patch -sNp1 < "$patch"; done
+```
 - apply backported rtw88 in case you need RTL8812AU/RTL8821AU support (ONLY 6.12, optional):
 ```bash
 $ for patch in ~/kernel-patches/generic/rtw88/*.patch; do patch -sNp1 < "$patch"; done

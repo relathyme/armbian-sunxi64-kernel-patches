@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.12.61 Kernel Configuration
+# Linux/arm64 6.12.62 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="ClangBuiltLinux clang version 21.1.0 (https://github.com/llvm/llvm-project.git 3623fe661ae35c6c80ac221f14d85be76aa870f1)"
 CONFIG_GCC_VERSION=0
@@ -2478,6 +2478,8 @@ CONFIG_BONDING=m
 CONFIG_DUMMY=m
 CONFIG_WIREGUARD=m
 # CONFIG_WIREGUARD_DEBUG is not set
+CONFIG_AMNEZIAWG=m
+# CONFIG_AMNEZIAWG_DEBUG is not set
 CONFIG_EQUALIZER=m
 CONFIG_IFB=m
 CONFIG_NET_TEAM=m

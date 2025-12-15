@@ -55,7 +55,12 @@ jobs:
           cd linux
           for patch in ../uwe5622-$KERNEL_FAMILY/*.patch; do patch -Np1 < "$patch"; done
           for patch in ../generic/*.patch; do patch -Np1 < "$patch"; done
-          if [ $KERNEL_FAMILY = sunxi-6.12 ]; then for patch in ../generic/rtw88/*.patch; do patch -Np1 < "$patch"; done; fi
+          if [ $KERNEL_FAMILY = sunxi-6.12 ]; then
+            for patch in ../generic/rtw88/*.patch; do patch -Np1 < "$patch"; done
+            git clone https://github.com/amnezia-vpn/amneziawg-linux-kernel-module awg -b v1.0.20251104
+            ln -s $PWD/awg/src drivers/net/amneziawg
+            for patch in ~/kernel-patches/generic/awg/*.patch; do patch -sNp1 < "$patch"; done
+          fi
           for patch in $(cat series.conf); do patch -p1 < "$patch"; done
           if [ -n "$KERNEL_PATCH" ]; then for patch in $KERNEL_PATCH; do patch -p1 < ../generic/"$patch"; done; fi
 

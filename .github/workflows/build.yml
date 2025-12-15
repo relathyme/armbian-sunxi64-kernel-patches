@@ -75,7 +75,7 @@ jobs:
             LLVM=1 \
             LLVM_IAS=1 \
             KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
-            LOCALVERSION="-r${ARMBIAN_VERSION:0:12}" \
+            LOCALVERSION="-${BUILD_NUMBER}-r${ARMBIAN_VERSION:0:12}" \
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \
@@ -85,7 +85,7 @@ jobs:
       - name: Generate kernelrelease
         run: |
           cd linux
-          echo KERNELRELEASE=$(make -s O=out LOCALVERSION="-r${ARMBIAN_VERSION:0:12}" kernelrelease) >> $GITHUB_ENV
+          echo KERNELRELEASE=$(make -s O=out LOCALVERSION="-${BUILD_NUMBER}-r${ARMBIAN_VERSION:0:12}" kernelrelease) >> $GITHUB_ENV
 
       - name: Upload kernel debs
         uses: actions/upload-artifact@v4
@@ -108,7 +108,7 @@ jobs:
             LLVM=1 \
             LLVM_IAS=1 \
             KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
-            LOCALVERSION="-r${ARMBIAN_VERSION:0:12}" \
+            LOCALVERSION="-${BUILD_NUMBER}-r${ARMBIAN_VERSION:0:12}" \
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \

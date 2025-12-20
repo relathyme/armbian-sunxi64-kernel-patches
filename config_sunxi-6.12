@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.12.62 Kernel Configuration
+# Linux/arm64 6.12.63 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="ClangBuiltLinux clang version 21.1.0 (https://github.com/llvm/llvm-project.git 3623fe661ae35c6c80ac221f14d85be76aa870f1)"
 CONFIG_GCC_VERSION=0
@@ -6032,6 +6032,7 @@ CONFIG_SND_SOC_MT6351=m
 CONFIG_SND_SOC_MT6358=m
 CONFIG_SND_SOC_MT6660=m
 CONFIG_SND_SOC_NAU8315=m
+# CONFIG_SND_SOC_NAU8325 is not set
 # CONFIG_SND_SOC_NAU8540 is not set
 # CONFIG_SND_SOC_NAU8810 is not set
 CONFIG_SND_SOC_NAU8821=m

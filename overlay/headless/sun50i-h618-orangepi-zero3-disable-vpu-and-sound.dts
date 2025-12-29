@@ -39,27 +39,20 @@
 	};
 
 	fragment@5 {
-		target = <&ahub_i2s1>;
+		target = <&mixer0>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
 	fragment@6 {
-		target = <&ahub_i2s2>;
+		target = <&mixer1>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
 	fragment@7 {
-		target = <&ahub_i2s3>;
-		__overlay__ {
-			status = "disabled";
-		};
-	};
-
-	fragment@8 {
 		target-path = "/soc/video-codec@1c0e000";
 		__overlay__ {
 			status = "disabled";

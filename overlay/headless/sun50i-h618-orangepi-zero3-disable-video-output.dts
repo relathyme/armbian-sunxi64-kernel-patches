@@ -25,20 +25,27 @@
 	};
 
 	fragment@3 {
-		target = <&tcon_tv>;
+		target = <&tcon_tv0>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
 	fragment@4 {
-		target = <&de>;
+		target = <&tcon_lcd0>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
 	fragment@5 {
+		target = <&de>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@6 {
 		target-path = "/connector";
 		__overlay__ {
 			status = "disabled";

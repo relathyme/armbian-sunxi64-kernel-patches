@@ -43,3 +43,4 @@ CONFIG_OVERLAY_FS as a module
 
 
 config for 6.12 based on the sunxi64-current config
+config for 6.12 based on the sunxi64-edge config

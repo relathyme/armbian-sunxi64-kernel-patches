@@ -38,5 +38,8 @@ CONFIG_NETFILTER_XT_TARGET_MASQUERADE as a module
 CONFIG_XFS_FS as a module
 CONFIG_OVERLAY_FS as a module
 -CONFIG_MSDOS_FS
+-CONFIG_MTD_CMDLINE_PARTS
+-CONFIG_MTD_PARTITIONED_MASTER
+
 
 config for 6.12 based on the sunxi64-current config

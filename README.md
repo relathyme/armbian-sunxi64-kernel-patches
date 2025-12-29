@@ -14,9 +14,9 @@
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=2bbf332e87e513ac622014448f54b9523202b566 # or other commit
+$ ARMBIAN_VERSION=4d4390541ecd1c745e1e78eacd512947aa854392 # or other commit
 
-$ KERNEL_FAMILY=sunxi-6.12 # or other version
+$ KERNEL_FAMILY=sunxi-6.18 # or other version
 
 $ wget https://github.com/armbian/build/archive/$ARMBIAN_VERSION.tar.gz
 
@@ -43,7 +43,9 @@ $ git clone https://github.com/amnezia-vpn/amneziawg-linux-kernel-module awg -b 
 
 $ ln -s $PWD/awg/src drivers/net/amneziawg
 
-$ for patch in ~/kernel-patches/generic/awg/*.patch; do patch -sNp1 < "$patch"; done
+$ patch -p1 < ~/kernel-patches/generic/awg/0001-amneziawg-as-intree.patch
+
+$ patch -p1 < ~/kernel-patches/generic/awg/0002-drivers-net-amneziawg-$KERNEL_FAMILY.patch
 ```
 - apply backported rtw88 in case you need RTL8812AU/RTL8821AU support (ONLY 6.12, optional):
 ```bash

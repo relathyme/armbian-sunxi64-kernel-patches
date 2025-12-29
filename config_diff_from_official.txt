@@ -31,4 +31,12 @@ CONFIG_RTW88_8821AU as a module
 CONFIG_RTW88_8812AU as a module
 CONFIG_AMNEZIAWG as a module
 
+for 6.18+
+CONFIG_NETFILTER_XT_NAT as a module
+CONFIG_NETFILTER_XT_TARGET_REDIRECT as a module
+CONFIG_NETFILTER_XT_TARGET_MASQUERADE as a module
+CONFIG_XFS_FS as a module
+CONFIG_OVERLAY_FS as a module
+-CONFIG_MSDOS_FS
+
 config for 6.12 based on the sunxi64-current config

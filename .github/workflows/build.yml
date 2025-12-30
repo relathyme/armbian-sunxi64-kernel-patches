@@ -32,7 +32,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync device-tree-compiler u-boot-tools zstd ccache
+          sudo apt install -y --no-install-recommends wget xz-utils ca-certificates gzip git build-essential flex bison debhelper-compat bc cpio kmod libelf-dev libssl-dev rsync device-tree-compiler u-boot-tools zstd ccache libdw-dev
 
       - name: Get toolchain
         run: |

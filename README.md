@@ -14,7 +14,7 @@
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=4d4390541ecd1c745e1e78eacd512947aa854392 # or other commit
+$ ARMBIAN_VERSION=881e231ba548d317733385e6d527bc59fc507848 # or other commit
 
 $ KERNEL_FAMILY=sunxi-6.18 # or other version
 
@@ -37,7 +37,7 @@ $ for patch in ~/kernel-patches/generic/*.patch; do patch -sNp1 < "$patch"; done
 
 $ for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
 ```
-- add [amneziawg support](https://github.com/amnezia-vpn/amneziawg-linux-kernel-module) (tested only with 6.12, optional)
+- add [amneziawg support](https://github.com/amnezia-vpn/amneziawg-linux-kernel-module) (tested only with 6.12 and 6.18, optional)
 ```bash
 $ git clone https://github.com/amnezia-vpn/amneziawg-linux-kernel-module awg -b v1.0.20251104
 

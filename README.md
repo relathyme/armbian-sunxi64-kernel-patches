@@ -14,7 +14,7 @@
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=01176b0150940dca466b7ffdf18336541eb717ff # or other commit
+$ ARMBIAN_VERSION=501ad529462d3159993b07485eb4d5f5746c3f46 # or other commit
 
 $ KERNEL_FAMILY=sunxi-6.18 # or other version
 
@@ -64,7 +64,7 @@ $ make \
     ARCH=arm64 \
     LLVM=1 \
     LLVM_IAS=1 \
-    KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
+    KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I./drivers/net/wireless/uwe5622/unisocwcn/include" \
     LOCALVERSION="-r${ARMBIAN_VERSION:0:12}" \
     KBUILD_BUILD_USER="nobody" \
     KBUILD_BUILD_HOST="localhost" \

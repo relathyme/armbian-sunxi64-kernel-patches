@@ -7,9 +7,13 @@
 		target = <&spi0>;
 		__overlay__ {
 			flash@0 {
+				partition@4 {
+					label = "os";
+					reg = <0x00580000 0x00a80000>;
+				};
 				partition@3 {
-					label = "jffs2";
-					reg = <0x00180000 0x00e80000>;
+					label = "uimage";
+					reg = <0x00180000 0x00400000>;
 				};
 				partition@2 {
 					label = "firmware";

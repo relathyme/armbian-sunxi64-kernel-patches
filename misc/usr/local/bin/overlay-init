@@ -6,7 +6,11 @@ mount -t proc proc -o nosuid,nodev,noexec /proc
 skip_overlay=0
 
 if [ "$skip_overlay" != 1 ]; then
-	mount -t tmpfs tmpfs /mnt/overlay
+	if blkid | grep -q LABEL=\"persist\"; then
+		mount -t ext4 LABEL=persist -o defaults,noatime,nodiratime,discard /mnt/overlay
+	else
+		mount -t tmpfs tmpfs -o defaults,size=1G /mnt/overlay
+	fi
 	mkdir -p /mnt/overlay/upper /mnt/overlay/work /mnt/overlay/merged
 
 	mount -t overlay overlay -o lowerdir=/,upperdir=/mnt/overlay/upper,workdir=/mnt/overlay/work /mnt/overlay/merged

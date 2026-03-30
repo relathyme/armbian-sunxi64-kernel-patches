@@ -7,7 +7,7 @@ env import -t ${boot_tmp_addr} ${filesize}
 if itest.s ${boot_spi} == "true"; then
 	sf probe 0
 	sf read ${boot_tmp_addr} 0x000f0000 0x00010000
-	env import -d ${boot_tmp_addr}
+	env import -d -t ${boot_tmp_addr} 0x00010000
 	run bootcmd
 fi
 

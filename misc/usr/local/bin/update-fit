@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+if [ "$EUID" -ne 0 ]; then
+	echo "This script must be running as root!"
+	exit 1
+fi
+
+KVER="${1:-$(uname -r)}"
+VMLINUZ=/boot/vmlinuz-"$KVER"
+INITRD=/boot/initrd.img-"$KVER"
+
+if [ ! -e "$VMLINUZ" ]; then
+	echo "Kernel version "$KVER" is not found!"
+	exit 1
+fi
+
+if [ ! -e "$INITRD" ]; then
+	echo "Initrd for version "$KVER" is not found!"
+	exit 1
+fi
+
+TEMPLATE=/usr/local/etc/uImage-template.its
+
+if [ ! -e "$TEMPLATE" ]; then
+        echo "FIT template is not found!"
+        exit 1
+fi
+
+BOOT_DIR=/boot/loader
+sed "s#%KVER%#$KVER#; s#%VMLINUZ%#$VMLINUZ#; s#%INITRD%#$INITRD#" < "$TEMPLATE" | mkimage -f /dev/stdin "$BOOT_DIR"/uImage-"$KVER".itb
+ln -sf uImage-"$KVER".itb "$BOOT_DIR"/uImage.itb

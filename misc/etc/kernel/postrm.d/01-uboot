@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -v /boot/loader/uImage-$1.itb 2> /dev/null || true

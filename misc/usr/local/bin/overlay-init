@@ -1,12 +1,15 @@
 #!/bin/sh
 
+set -e
+
 mount -t sysfs sysfs -o nosuid,nodev,noexec /sys
 mount -t proc proc -o nosuid,nodev,noexec /proc
 
 skip_overlay=0
+force_ram=0
 
 if [ "$skip_overlay" != 1 ]; then
-	if blkid | grep -q LABEL=\"persist\"; then
+	if findfs LABEL=persist && [ "$force_ram" != 1 ]; then
 		mount -t ext4 LABEL=persist -o defaults,noatime,nodiratime,discard /mnt/overlay
 	else
 		mount -t tmpfs tmpfs -o defaults,size=1G /mnt/overlay
@@ -22,9 +25,8 @@ if [ "$skip_overlay" != 1 ]; then
 	mount --move /old_root/sys /sys
 	mount --move /old_root/proc /proc
 	mount --move /old_root/dev /dev
-	mount --move /old_root/mnt/overlay /mnt/overlay
 	umount -l /old_root
-	rmdir /old_root /mnt/overlay/merged
+	rmdir /old_root
 fi
 
 mount /dev/mtdblock2 /mnt/firmware

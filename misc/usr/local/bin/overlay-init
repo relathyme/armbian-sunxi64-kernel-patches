@@ -22,7 +22,9 @@ if [ "$skip_overlay" != 1 ]; then
 	mount --move /old_root/sys /sys
 	mount --move /old_root/proc /proc
 	mount --move /old_root/dev /dev
-	mount -o ro,remount /old_root
+	mount --move /old_root/mnt/overlay /mnt/overlay
+	umount -l /old_root
+	rmdir /old_root /mnt/overlay/merged
 fi
 
 mount /dev/mtdblock2 /mnt/firmware

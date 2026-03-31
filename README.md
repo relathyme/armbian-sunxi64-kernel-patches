@@ -51,6 +51,10 @@ $ patch -p1 < ~/kernel-patches/generic/awg/0002-drivers-net-amneziawg-$KERNEL_FA
 ```bash
 $ for patch in ~/kernel-patches/generic/rtw88/*.patch; do patch -sNp1 < "$patch"; done
 ```
+- apply lzma support for jffs2 (6.18, optional):
+```bash
+$ for patch in ~/kernel-patches/generic/jffs2-$KERNEL_FAMILY/*.patch; do patch -sp1 < "$patch"; done
+```
 - uwe5622 patches are extracted according to https://github.com/armbian/build/blob/main/lib/functions/compilation/patch/drivers_network.sh (function driver_uwe5622())
 
 # build debian kernel package

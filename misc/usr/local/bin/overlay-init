@@ -29,6 +29,8 @@ if [ "$skip_overlay" != 1 ]; then
 	rmdir /old_root
 fi
 
+mount LABEL=boot /mnt/boot || true
+
 mount /dev/mtdblock2 /mnt/firmware
 modprobe sprdwl_ng
 

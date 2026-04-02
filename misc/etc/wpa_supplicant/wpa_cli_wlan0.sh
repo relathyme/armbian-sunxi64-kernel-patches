@@ -20,6 +20,7 @@ logger -t wpa_cli "interface ${IFNAME} ${ACTION}"
 case "${ACTION}" in
 	CONNECTED)
 		udhcpc -b -R -p /var/run/udhcpc.wlan0.pid -i wlan0
+		ntpd -q -p pool.ntp.org
 		echo 0 > /sys/class/leds/red\:power/brightness
 		echo 1 > /sys/class/leds/green\:status/brightness
 		;;

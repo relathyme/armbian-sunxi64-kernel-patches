@@ -82,7 +82,6 @@ jobs:
             KBUILD_BUILD_USER="nobody" \
             KBUILD_BUILD_HOST="localhost" \
             KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \
-            CC="ccache clang" \
             bindeb-pkg -j$(nproc)
 
       - name: Generate kernelrelease
@@ -98,32 +97,4 @@ jobs:
             linux/linux-image-*-1_*.deb
             linux/linux-headers-*-1_*.deb
             linux/linux-libc-dev_*-1_*.deb
-          retention-days: 7
-
-      - name: Build non-EFI kernel
-        run: |
-          cd linux/out
-          ../scripts/config --disable CONFIG_EFI
-          cd ..
-          make \
-            O=out \
-            ARCH=arm64 \
-            LLVM=1 \
-            LLVM_IAS=1 \
-            KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53 -Wno-incompatible-pointer-types-discards-qualifiers -I$PWD/drivers/net/wireless/uwe5622/unisocwcn/include" \
-            LOCALVERSION="-${BUILD_NUMBER}-r${ARMBIAN_VERSION:0:12}" \
-            KBUILD_BUILD_USER="nobody" \
-            KBUILD_BUILD_HOST="localhost" \
-            KBUILD_BUILD_TIMESTAMP="$RUN_TIMESTAMP" \
-            CC="ccache clang" \
-            bindeb-pkg -j$(nproc)
-
-      - name: Upload non-EFI kernel debs
-        uses: actions/upload-artifact@v4
-        with:
-          name: non-efi-linux-${{ env.KERNELRELEASE }}-${{ env.KERNEL_FAMILY }}
-          path: |
-            linux/linux-image-*-2_*.deb
-            linux/linux-headers-*-2_*.deb
-            linux/linux-libc-dev_*-2_*.deb
           retention-days: 7

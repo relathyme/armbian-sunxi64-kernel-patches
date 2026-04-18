@@ -60,6 +60,7 @@ jobs:
             ln -s $PWD/awg/src drivers/net/amneziawg
             patch -p1 < ../generic/awg/0001-amneziawg-as-intree.patch
             patch -p1 < ../generic/awg/0002-drivers-net-amneziawg-$KERNEL_FAMILY.patch
+            for patch in ../generic/jffs2-$KERNEL_FAMILY/*.patch; do patch -p1 < "$patch"; done
           fi
           for patch in $(cat series.conf); do patch -p1 < "$patch"; done
           if [ -n "$KERNEL_PATCH" ]; then for patch in $KERNEL_PATCH; do patch -p1 < ../generic/"$patch"; done; fi

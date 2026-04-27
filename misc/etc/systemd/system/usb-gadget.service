@@ -1,0 +1,9 @@
+[Unit]
+Description=Setup usb-gadget
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/usb-gadget.sh
+
+[Install]
+WantedBy=usb-gadget.target

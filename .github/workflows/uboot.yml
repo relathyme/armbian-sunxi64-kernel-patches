@@ -70,10 +70,6 @@ jobs:
             O=out \
             -j$(nproc) \
             "$DEVICE"_defconfig
-          cd out
-          ../scripts/config -e CONFIG_EFI_RT_VOLATILE_STORE
-          ../scripts/config -e CONFIG_CMD_UFETCH
-          cd ..
           make \
             O=out \
             SOURCE_DATE_EPOCH=$BUILD_TIMESTAMP \

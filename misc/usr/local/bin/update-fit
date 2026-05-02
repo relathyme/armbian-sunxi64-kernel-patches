@@ -29,5 +29,7 @@ if [ ! -e "$TEMPLATE" ]; then
 fi
 
 BOOT_DIR=/boot/loader
-sed "s#%KVER%#$KVER#; s#%VMLINUZ%#$VMLINUZ#; s#%INITRD%#$INITRD#" < "$TEMPLATE" | mkimage -f /dev/stdin "$BOOT_DIR"/uImage-"$KVER".itb
+TMP_FILE=$(mktemp -p /tmp -u update-fit.XXXXXX)
+sed "s#%KVER%#$KVER#; s#%VMLINUZ%#$VMLINUZ#; s#%INITRD%#$INITRD#" < "$TEMPLATE" | mkimage -f /dev/stdin "$TMP_FILE"
+mv "$TMP_FILE" "$BOOT_DIR"/uImage-"$KVER".itb
 ln -sf uImage-"$KVER".itb "$BOOT_DIR"/uImage.itb

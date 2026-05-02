@@ -6,6 +6,7 @@ Before=network-pre.target
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/generate_hostname.sh
+RemainAfterExit=true
 
 [Install]
 WantedBy=multi-user.target

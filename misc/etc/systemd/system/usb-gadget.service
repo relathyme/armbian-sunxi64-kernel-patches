@@ -4,6 +4,7 @@ Description=Setup usb-gadget
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/usb-gadget.sh
+RemainAfterExit=true
 
 [Install]
 WantedBy=usb-gadget.target

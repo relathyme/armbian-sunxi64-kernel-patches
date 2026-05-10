@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.18.26 Kernel Configuration
+# Linux/arm64 6.18.28 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="ClangBuiltLinux clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)"
 CONFIG_GCC_VERSION=0
@@ -7954,8 +7954,8 @@ CONFIG_JFFS2_LZMA=y
 CONFIG_JFFS2_RTIME=y
 # CONFIG_JFFS2_RUBIN is not set
 # CONFIG_JFFS2_CMODE_NONE is not set
-CONFIG_JFFS2_CMODE_PRIORITY=y
-# CONFIG_JFFS2_CMODE_SIZE is not set
+# CONFIG_JFFS2_CMODE_PRIORITY is not set
+CONFIG_JFFS2_CMODE_SIZE=y
 # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
 CONFIG_UBIFS_FS=m
 CONFIG_UBIFS_FS_ADVANCED_COMPR=y

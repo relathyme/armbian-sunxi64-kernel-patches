@@ -7,28 +7,34 @@
 		target = <&spi0>;
 		__overlay__ {
 			flash@0 {
-				#address-cells = <1>;
-				#size-cells = <1>;
-				partition@4 {
-					label = "os";
-					reg = <0x00580000 0x00a80000>;
-				};
-				partition@3 {
-					label = "uimage";
-					reg = <0x00180000 0x00400000>;
-				};
-				partition@2 {
-					label = "firmware";
-					reg = <0x00100000 0x00080000>;
-				};
-				partition@1 {
-					label = "env";
-					compatible = "u-boot,env";
-					reg = <0x000f0000 0x00010000>;
-				};
-				partition@0 {
-					label = "bootloader";
-					reg = <0x00000000 0x000f0000>;
+				partitions {
+					compatible = "fixed-partitions";
+					#address-cells = <0x01>;
+					#size-cells = <0x01>;
+					partition@4 {
+						label = "os";
+						reg = <0x580000 0xa80000>;
+					};
+					partition@3 {
+						label = "uimage";
+						reg = <0x180000 0x400000>;
+					};
+					partition@2 {
+						label = "firmware";
+						reg = <0x100000 0x80000>;
+					};
+					partition@1 {
+						compatible = "u-boot,env";
+						label = "env";
+						reg = <0xf0000 0x10000>;
+						nvmem-layout {
+							compatible = "u-boot,env";
+						};
+					};
+					partition@0 {
+						label = "bootloader";
+						reg = <0x00 0xf0000>;
+					};
 				};
 			};
 		};

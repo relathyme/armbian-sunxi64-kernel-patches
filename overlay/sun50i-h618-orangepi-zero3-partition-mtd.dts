@@ -7,6 +7,8 @@
 		target = <&spi0>;
 		__overlay__ {
 			flash@0 {
+				#address-cells = <1>;
+				#size-cells = <1>;
 				partition@4 {
 					label = "os";
 					reg = <0x00580000 0x00a80000>;
@@ -21,6 +23,7 @@
 				};
 				partition@1 {
 					label = "env";
+					compatible = "u-boot,env";
 					reg = <0x000f0000 0x00010000>;
 				};
 				partition@0 {

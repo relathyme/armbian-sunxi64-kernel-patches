@@ -194,3 +194,11 @@ Disk (/mnt/firmware): 512.00 KiB / 512.00 KiB (100%) - squashfs [Read-only]
 Local IP (wlan0): 192.168.***/24
 Locale: C.UTF-8
 ```
+
+# dumping fs to tar archive
+```bash
+# mount --mkdir tmpfs -t tmpfs /tmp/jffs
+# mount --mkdir /dev/mtdblock4 -t jffs2 /mnt/jffs
+# rsync -aAXHvP /mnt/jffs/* /tmp/jffs
+# bsdtar cpvf jffs.tar jffs/
+```

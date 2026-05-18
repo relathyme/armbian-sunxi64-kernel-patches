@@ -10,7 +10,7 @@
 ```bash
 $ cd ~/
 
-$ ARMBIAN_VERSION=3d05c50742d356ac78f81300c7025b3ee04fbd53 # or other commit
+$ ARMBIAN_VERSION=2516256ad05e8811f1d89c206f806702c8503b0c # or other commit
 
 $ KERNEL_FAMILY=sunxi-6.18 # or other version
 
@@ -35,17 +35,13 @@ $ for patch in $(cat series.conf); do patch -sp1 < "$patch"; done
 ```
 - add [amneziawg support](https://github.com/amnezia-vpn/amneziawg-linux-kernel-module) (tested only with 6.12 and 6.18, optional)
 ```bash
-$ git clone https://github.com/amnezia-vpn/amneziawg-linux-kernel-module awg -b v1.0.20251104
+$ git clone https://github.com/amnezia-vpn/amneziawg-linux-kernel-module awg -b v1.0.20260329-2
 
 $ ln -s $PWD/awg/src drivers/net/amneziawg
 
 $ patch -p1 < ~/kernel-patches/generic/awg/0001-amneziawg-as-intree.patch
 
 $ patch -p1 < ~/kernel-patches/generic/awg/0002-drivers-net-amneziawg-$KERNEL_FAMILY.patch
-```
-- apply backported rtw88 in case you need RTL8812AU/RTL8821AU support (ONLY 6.12, optional):
-```bash
-$ for patch in ~/kernel-patches/generic/rtw88/*.patch; do patch -sNp1 < "$patch"; done
 ```
 - apply lzma support for jffs2 (6.18, optional):
 ```bash

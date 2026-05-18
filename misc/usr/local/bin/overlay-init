@@ -3,6 +3,7 @@
 set -e
 
 mount -t sysfs sysfs -o nosuid,nodev,noexec /sys
+mount -t configfs configfs -o nosuid,nodev,noexec /sys/kernel/config
 mount -t proc proc -o nosuid,nodev,noexec /proc
 
 source /init.conf || true
@@ -26,6 +27,27 @@ if [ "$skip_overlay" != 1 ]; then
 	mount --move /old_root/dev /dev
 	umount -l /old_root
 	rmdir /old_root
+fi
+
+if [ "$skip_gadget" != 1 ]; then
+	modprobe libcomposite
+
+	cd /sys/kernel/config/usb_gadget/
+	mkdir g1
+	cd g1/
+
+	echo 0x1d6b > idVendor
+	echo 0x1000 > idProduct
+	mkdir strings/0x409
+	echo 0000000000 > strings/0x409/serialnumber
+	echo Linux > strings/0x409/manufacturer
+	echo libcomposite > strings/0x409/product
+
+	mkdir configs/c.1
+	mkdir functions/acm.0
+	ln -s functions/acm.0/ configs/c.1/
+
+	ls /sys/class/udc/ > UDC
 fi
 
 mount LABEL=boot /mnt/boot || true

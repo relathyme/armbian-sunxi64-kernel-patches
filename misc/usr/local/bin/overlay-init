@@ -5,8 +5,7 @@ set -e
 mount -t sysfs sysfs -o nosuid,nodev,noexec /sys
 mount -t proc proc -o nosuid,nodev,noexec /proc
 
-skip_overlay=0
-force_ram=0
+source /init.conf || true
 
 if [ "$skip_overlay" != 1 ]; then
 	if findfs LABEL=persist && [ "$force_ram" != 1 ]; then

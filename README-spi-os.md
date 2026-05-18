@@ -45,10 +45,9 @@ $ sudo make \
     ARCH=arm64 \
     CROSS_COMPILE=aarch64-none-elf- \
     KCFLAGS="-march=armv8-a+crc+crypto -mtune=cortex-a53" \
-    KBUILD_BUILD_USER="nobody" \
-    KBUILD_BUILD_HOST="localhost" \
-    KBUILD_BUILD_TIMESTAMP="$(date -Ru)" \
-    INSTALL_MOD_PATH=/root/jffs INSTALL_MOD_STRIP=1 modules_install -j$(nproc) 2>&1 | tee -a build.log
+    INSTALL_MOD_PATH=/root/jffs \
+    INSTALL_MOD_STRIP=1 \
+    modules_install -j$(nproc) 2>&1 | tee -a build.log
 ```
 
 # build jffs2 image

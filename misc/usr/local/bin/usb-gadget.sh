@@ -18,8 +18,8 @@ mkdir functions/acm.0
 ln -s functions/acm.0/ configs/c.1/
 
 mkdir functions/ncm.0
-echo %MAC-A% > functions/ncm.0/dev_addr
-echo %MAC-B% > functions/ncm.0/host_addr
+echo "$(fw_printenv -n conf_ncm_dev_addr)" > functions/ncm.0/dev_addr
+echo "$(fw_printenv -n conf_ncm_host_addr)" > functions/ncm.0/host_addr
 ln -s functions/ncm.0/ configs/c.1/
 
 ls /sys/class/udc/ > UDC

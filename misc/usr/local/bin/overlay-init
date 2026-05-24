@@ -6,9 +6,9 @@ mount -t sysfs sysfs -o nosuid,nodev,noexec /sys
 mount -t configfs configfs -o nosuid,nodev,noexec /sys/kernel/config
 mount -t proc proc -o nosuid,nodev,noexec /proc
 
-skip_overlay=$(cat /sys/bus/nvmem/devices/mtd1/cells/conf_skip_overlay* || printf 0)
-force_ram=$(cat /sys/bus/nvmem/devices/mtd1/cells/conf_force_ram* || printf 0)
-skip_gadget=$(cat /sys/bus/nvmem/devices/mtd1/cells/conf_skip_gadget* || printf 0)
+skip_overlay=$(cat /sys/bus/nvmem/devices/mtd1/cells/conf_skip_overlay@* || printf 0)
+force_ram=$(cat /sys/bus/nvmem/devices/mtd1/cells/conf_force_ram@* || printf 0)
+skip_gadget=$(cat /sys/bus/nvmem/devices/mtd1/cells/conf_skip_gadget@* || printf 0)
 
 if [ "$skip_overlay" != 1 ]; then
 	if findfs LABEL=persist && [ "$force_ram" != 1 ]; then
